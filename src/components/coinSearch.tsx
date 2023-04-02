@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Route, Router, Routes } from "react-router-dom";
 import {
   Area,
   AreaChart,
@@ -8,6 +7,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import { RenderChart } from "./renderChart";
 
 export function CoinSearch(props: any) {
   const [priceData, setPriceData] = useState<any[]>([]);
@@ -37,87 +37,65 @@ export function CoinSearch(props: any) {
   const newData = [
     {
       coinName: priceData[0]?.id ? todayDate : "",
-      coinPrice: priceData[0]?.current_price ?? "",
-      price: priceData[0]?.sparkline_in_7d.price[167] ?? "",
+      bitcoinPrice: priceData[0]?.current_price ?? "",
+      Price: priceData[0]?.current_price ?? "",
     },
     {
       coinName: priceData[0]?.id ? calcDate(20) : "",
-      coinPrice: priceData[0]?.current_price ?? "",
-      price: priceData[0]?.sparkline_in_7d.price[147] ?? "",
+      bitcoinPrice: priceData[0]?.current_price ?? "",
+      Price: priceData[0]?.sparkline_in_7d.price[147] ?? "",
     },
     {
       coinName: priceData[0]?.id ? calcDate(40) : "",
-      coinPrice: priceData[0]?.current_price ?? "",
-      price: priceData[0]?.sparkline_in_7d.price[127] ?? "",
+      bitcoinPrice: priceData[0]?.current_price ?? "",
+      Price: priceData[0]?.sparkline_in_7d.price[127] ?? "",
     },
     {
       coinName: priceData[0]?.id ? calcDate(60) : "",
-      coinPrice: priceData[0]?.current_price ?? "",
-      price: priceData[0]?.sparkline_in_7d.price[107] ?? "",
+      bitcoinPrice: priceData[0]?.current_price ?? "",
+      Price: priceData[0]?.sparkline_in_7d.price[107] ?? "",
     },
     {
       coinName: priceData[0]?.id ? calcDate(80) : "",
-      coinPrice: priceData[0]?.current_price ?? "",
-      price: priceData[0]?.sparkline_in_7d.price[87] ?? "",
+      bitcoinPrice: priceData[0]?.current_price ?? "",
+      Price: priceData[0]?.sparkline_in_7d.price[87] ?? "",
     },
     {
       coinName: priceData[0]?.id ? calcDate(100) : "",
-      coinPrice: priceData[0]?.current_price ?? "",
-      price: priceData[0]?.sparkline_in_7d.price[67] ?? "",
+      bitcoinPrice: priceData[0]?.current_price ?? "",
+      Price: priceData[0]?.sparkline_in_7d.price[67] ?? "",
     },
     {
       coinName: priceData[0]?.id ? calcDate(120) : "",
-      coinPrice: priceData[0]?.current_price ?? "",
-      price: priceData[0]?.sparkline_in_7d.price[47] ?? "",
+      bitcoinPrice: priceData[0]?.current_price ?? "",
+      Price: priceData[0]?.sparkline_in_7d.price[47] ?? "",
     },
     {
       coinName: priceData[0]?.id ? calcDate(140) : "",
-      coinPrice: priceData[0]?.current_price ?? "",
-      price: priceData[0]?.sparkline_in_7d.price[27] ?? "",
+      bitcoinPrice: priceData[0]?.current_price ?? "",
+      Price: priceData[0]?.sparkline_in_7d.price[27] ?? "",
     },
     {
       coinName: priceData[0]?.id ? calcDate(160) : "",
-      coinPrice: priceData[0]?.current_price ?? "",
-      price: priceData[0]?.sparkline_in_7d.price[0] ?? "",
+      bitcoinPrice: priceData[0]?.current_price ?? "",
+      Price: priceData[0]?.sparkline_in_7d.price[0] ?? "",
     },
   ];
   const coinImage = priceData[0]?.image;
-  console.log(newData);
+  // console.log(newData);
 
-  return (
-    // <Routes>
-    //   <Route path={`/${props.searchValue}`}>
+  return coinImage ? (
     <div>
       <div>
         <center>
-          <img
-            src={coinImage}
-            alt="coin"
-            width={"100px"}
-            className="relative top-10"
-          />
+          <img src={coinImage} alt="coin" width={"100px"} className="m-6" />
         </center>
       </div>
-      <center>
-        <AreaChart
-          className="relative top-20"
-          width={800}
-          height={250}
-          data={newData}
-          margin={{
-            top: 10,
-            right: 30,
-            left: 0,
-            bottom: 0,
-          }}
-        >
-          <CartesianGrid strokeDasharray="3 3 " />
-          <XAxis tick={{ fill: "white" }} tickCount={10} dataKey="coinName" />
-          <YAxis tick={{ fill: "white" }} tickCount={4} />
-          <Tooltip contentStyle={{ color: "white" }} />
-          <Area type="natural" dataKey="price" stroke="#8884d8" fill="green" />
-        </AreaChart>
-      </center>
+      <RenderChart data={priceData} chartData={newData} />
     </div>
+  ) : (
+    <center>
+      <div className="text-white text-3xl relative top-20">Coin Not Found</div>
+    </center>
   );
 }

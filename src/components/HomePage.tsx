@@ -12,7 +12,7 @@ function HomePage() {
 
   const handleKeyDown = (key: React.KeyboardEvent<HTMLInputElement>) => {
     if (key.code === "Enter" && inputValue) {
-      console.log("in handleKeyDown :" + key.code);
+      //  console.log("in handleKeyDown :" + key.code);
       setSearching(true);
     } else setSearching(false);
   };
@@ -24,22 +24,25 @@ function HomePage() {
 
   return (
     <>
-      <div className="bg-white h-30">
-        <h1 className="bg-black text-white uppercase text-center relative top-5 h-20 text-6xl">
+      <div className="">
+        <div className="bg-black text-white font-bold uppercase text-center relative  h-15 text-2xl">
           Crypto Stat
-        </h1>
+        </div>
       </div>
 
-      <div className="bg-blue-900">
+      <div className="">
         <center>
-          <div className="top-35 relative">
-            <div className="text-white w-24 top-2 relative">Search Coins </div>
+          <div className="top-35 relative ">
+            <div className="text-white w-48 top-2">Search For a Coin</div>
             <input
-              style={{ color: "black", backgroundColor: "white" }}
+              style={{
+                color: "black",
+                border: "2px solid black",
+              }}
               width={"30rem"}
-              placeholder="Enter text..."
+              placeholder="Enter coin name..."
               ref={refInput}
-              className="w-96 h-9 top-4 relative"
+              className="input w-96 h-9 top-4 relative "
               type={"text"}
               onKeyDown={(e) => handleKeyDown(e)}
               value={inputValue}
@@ -47,7 +50,7 @@ function HomePage() {
             />
           </div>
           {!searching && (
-            <div className="text-white text-3xl w-50 top-10 relative">
+            <div className="text-white text-3xl w-30 top-10 relative ">
               Trending Coins{" "}
             </div>
           )}
@@ -56,7 +59,9 @@ function HomePage() {
 
       {!searching ? (
         // <Routes>
-        <FetchTrendingCoins />
+        <div className="">
+          <FetchTrendingCoins />
+        </div>
       ) : (
         // </Routes>
         // <Routes>
