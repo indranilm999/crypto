@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import "../home.css";
 import { CoinSearch } from "./coinSearch";
 import { FetchTrendingCoins } from "./fetchTrendingCoins";
+import bitcoinImage from "./bitcoin_image.png";
+import { Route, Routes } from "react-router-dom";
 
 function HomePage() {
   const [inputValue, setInputValue] = useState("");
@@ -22,34 +24,44 @@ function HomePage() {
 
   return (
     <>
-      <h1 className="bg-blue-900 text-white uppercase text-center relative top-3">
-        Crypto Stat
-      </h1>
+      <div className="bg-white h-30">
+        <h1 className="bg-black text-white uppercase text-center relative top-5 h-20 text-6xl">
+          Crypto Stat
+        </h1>
+      </div>
 
-      <div className="bg-blue-900  ">
-        <div className="text-white  top-6 left-20 relative w-24">
-          Search Coins{" "}
-        </div>
+      <div className="bg-blue-900">
         <center>
-          <div className="">
+          <div className="top-35 relative">
+            <div className="text-white w-24 top-2 relative">Search Coins </div>
             <input
               style={{ color: "black", backgroundColor: "white" }}
               width={"30rem"}
+              placeholder="Enter text..."
               ref={refInput}
-              className=""
+              className="w-96 h-9 top-4 relative"
               type={"text"}
               onKeyDown={(e) => handleKeyDown(e)}
               value={inputValue}
               onChange={(e) => setInputValue(e.currentTarget.value)}
             />
           </div>
+          {!searching && (
+            <div className="text-white text-3xl w-50 top-10 relative">
+              Trending Coins{" "}
+            </div>
+          )}
         </center>
       </div>
 
       {!searching ? (
+        // <Routes>
         <FetchTrendingCoins />
       ) : (
+        // </Routes>
+        // <Routes>
         <CoinSearch searchValue={inputValue} />
+        // </Routes>
       )}
     </>
   );
