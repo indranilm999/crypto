@@ -3,6 +3,11 @@
 @tailwind utilities;
 
 *{
-     background-color:rgb(30 58 138);
-    
+     background-color:rgb(96, 165, 250);
+
 }
+
+.input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+     color: black;
+     opacity: 1; /* Firefox */
+   }

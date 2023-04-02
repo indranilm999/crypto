@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Route, Router, Routes } from "react-router-dom";
 import {
   Area,
   AreaChart,
@@ -38,55 +37,53 @@ export function CoinSearch(props: any) {
     {
       coinName: priceData[0]?.id ? todayDate : "",
       coinPrice: priceData[0]?.current_price ?? "",
-      price: priceData[0]?.sparkline_in_7d.price[167] ?? "",
+      Price: priceData[0]?.current_price ?? "",
     },
     {
       coinName: priceData[0]?.id ? calcDate(20) : "",
       coinPrice: priceData[0]?.current_price ?? "",
-      price: priceData[0]?.sparkline_in_7d.price[147] ?? "",
+      Price: priceData[0]?.sparkline_in_7d.price[147] ?? "",
     },
     {
       coinName: priceData[0]?.id ? calcDate(40) : "",
       coinPrice: priceData[0]?.current_price ?? "",
-      price: priceData[0]?.sparkline_in_7d.price[127] ?? "",
+      Price: priceData[0]?.sparkline_in_7d.price[127] ?? "",
     },
     {
       coinName: priceData[0]?.id ? calcDate(60) : "",
       coinPrice: priceData[0]?.current_price ?? "",
-      price: priceData[0]?.sparkline_in_7d.price[107] ?? "",
+      Price: priceData[0]?.sparkline_in_7d.price[107] ?? "",
     },
     {
       coinName: priceData[0]?.id ? calcDate(80) : "",
       coinPrice: priceData[0]?.current_price ?? "",
-      price: priceData[0]?.sparkline_in_7d.price[87] ?? "",
+      Price: priceData[0]?.sparkline_in_7d.price[87] ?? "",
     },
     {
       coinName: priceData[0]?.id ? calcDate(100) : "",
       coinPrice: priceData[0]?.current_price ?? "",
-      price: priceData[0]?.sparkline_in_7d.price[67] ?? "",
+      Price: priceData[0]?.sparkline_in_7d.price[67] ?? "",
     },
     {
       coinName: priceData[0]?.id ? calcDate(120) : "",
       coinPrice: priceData[0]?.current_price ?? "",
-      price: priceData[0]?.sparkline_in_7d.price[47] ?? "",
+      Price: priceData[0]?.sparkline_in_7d.price[47] ?? "",
     },
     {
       coinName: priceData[0]?.id ? calcDate(140) : "",
       coinPrice: priceData[0]?.current_price ?? "",
-      price: priceData[0]?.sparkline_in_7d.price[27] ?? "",
+      Price: priceData[0]?.sparkline_in_7d.price[27] ?? "",
     },
     {
       coinName: priceData[0]?.id ? calcDate(160) : "",
       coinPrice: priceData[0]?.current_price ?? "",
-      price: priceData[0]?.sparkline_in_7d.price[0] ?? "",
+      Price: priceData[0]?.sparkline_in_7d.price[0] ?? "",
     },
   ];
   const coinImage = priceData[0]?.image;
-  console.log(newData);
+  // console.log(newData);
 
-  return (
-    // <Routes>
-    //   <Route path={`/${props.searchValue}`}>
+  return coinImage ? (
     <div>
       <div>
         <center>
@@ -115,9 +112,66 @@ export function CoinSearch(props: any) {
           <XAxis tick={{ fill: "white" }} tickCount={10} dataKey="coinName" />
           <YAxis tick={{ fill: "white" }} tickCount={4} />
           <Tooltip contentStyle={{ color: "white" }} />
-          <Area type="natural" dataKey="price" stroke="#8884d8" fill="green" />
+          <Area type="natural" dataKey="Price" stroke="#8884d8" fill="green" />
         </AreaChart>
+        <div>
+          {/* {
+              `Name: ${priceData[0].id}`
+            
+            `current_price: ${priceData[0].current_price}`
+            
+              `market_cap: `$
+              {priceData[0].market_cap}`
+            </div>
+            <div>
+              market_cap_rank: `$
+              {priceData[0].market_cap_rank}`
+            </div>
+            <div>
+              fully_diluted_valuation: `$
+              {priceData[0].fully_diluted_valuation}`
+            </div>
+            <div>
+              {" "}
+              total_volume: `$
+              {priceData[0].total_volume}`
+            </div>
+            <div> high_24h: `${priceData[0].high_24h}`</div>
+            <div>low_24h: `${priceData[0].low_24h}`</div>
+            <div>
+              price_change_24h: `$
+              {priceData[0].price_change_24h}`
+            </div>
+            <div>
+              {" "}
+              price_change_percentage_24h: `$
+              {priceData[0].price_change_percentage_24h}`
+            </div>
+            <div>
+              {" "}
+              market_cap_change_24h: `${priceData[0].market_cap_change_24h}`
+            </div>
+            <div>
+              market_cap_change_percentage_24h: `$
+              {priceData[0].market_cap_change_percentage_24h}`
+            </div>
+            <div>circulating_supply: `${priceData[0].circulating_supply}`</div>
+            <div>total_supply: `${priceData[0].total_supply}`</div>
+            <div>
+              max_supply: `$
+              {priceData[0].max_supply}`
+            </div>
+            <div>
+              last_updated: `$
+              {priceData[0].last_updated}`
+            </div>
+} */}
+        </div>
       </center>
     </div>
+  ) : (
+    <center>
+      <div className="text-white text-3xl relative top-20">Coin Not Found</div>
+    </center>
   );
 }

@@ -11,7 +11,6 @@ import { CoinSearch } from "./coinSearch";
 
 export function FetchTrendingCoins() {
   const [data, setData] = useState<any[]>([]);
-  const [searchString, setSearchString] = useState("");
 
   const getTrendingCoins = async () => {
     const data = await fetch(
@@ -31,30 +30,35 @@ export function FetchTrendingCoins() {
 
   return (
     <div className="">
-      <BrowserRouter>
-        {/* <center> */}
-        {data.map((coinsItem: any) => {
-          const image = coinsItem.item.small;
-          return (
-            <div
-              className="flex  justify-center to-purple-200
-             relative bg-repeat-space space-y-2"
-            >
-              <img src={image} alt="coin" width={"40px"} className="" />
+      {/* <center> */}
+      {data.map((coinsItem: any) => {
+        const image = coinsItem.item.small;
+        return (
+          <div
+            className="flex  justify-around    border-4
+            border-black
+             relative top-20  bg-repeat-space space-y-7 "
+            key={coinsItem.item.id}
+            w-30
+          >
+            <img
+              src={image}
+              alt="coin"
+              width={"35px"}
+              className="relative left-8"
+            />
 
-              <div
-                className="bg-blue-900 text-3xl font-mono font-semibold  text-white relative  left-4"
-                key={coinsItem.item.id}
-              >
-                {coinsItem.item.id}
-                <div className="h-1"></div>
-                <div className="h-1"></div>
-              </div>
+            <div className=" bg-blue-400 text-2xl font-mono font-semibold  text-white relative  left-4 -top-2">
+              {coinsItem.item.id}
             </div>
-          );
-        })}
-        {/* </center> */}
-      </BrowserRouter>
+            <div className=" bg-blue-400  text-3xl font-mono font-semibold  text-white relative  left-10 -top-2">
+              {coinsItem.item.price_btc.toFixed(10) + ` BTC`}
+            </div>
+            <></>
+            <></>
+          </div>
+        );
+      })}
     </div>
   );
 }
