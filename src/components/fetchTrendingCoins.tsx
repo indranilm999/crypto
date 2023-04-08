@@ -55,6 +55,7 @@ export function FetchTrendingCoins() {
                 component="img"
                 alt="crypto coins"
                 image={image}
+                title={coinsItem.item.id}
                 style={{
                   flex: "21%",
                   margin: "44px",

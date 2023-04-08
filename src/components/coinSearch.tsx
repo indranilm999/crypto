@@ -88,7 +88,13 @@ export function CoinSearch(props: any) {
     <div>
       <div>
         <center>
-          <img src={coinImage} alt="coin" width={"100px"} className="m-6" />
+          <img
+            src={coinImage}
+            alt="coin"
+            width={"100px"}
+            className="m-6"
+            title={priceData[0]?.id}
+          />
         </center>
       </div>
       <RenderChart data={priceData} chartData={newData} />

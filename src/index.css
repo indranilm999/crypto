@@ -2,24 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-*{
-<<<<<<< HEAD
-     
-
-
-}
 
 html, body, #app, #app>div {
      height: 100%;
      background-color:RGB(68, 184, 172)
    }
 
-=======
-     background-color:rgb(96, 165, 250);
-
-}
-
->>>>>>> 108f561e89cd5da322294da963690e903fabb974
 .input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
      color: black;
      opacity: 1; /* Firefox */

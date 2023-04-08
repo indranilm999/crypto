@@ -4,23 +4,43 @@ import { CoinSearch } from "./coinSearch";
 import { FetchTrendingCoins } from "./fetchTrendingCoins";
 import bitcoinImage from "./bitcoin_image.png";
 import { Route, Routes } from "react-router-dom";
+import { Popover, PopoverPosition } from "@material-ui/core";
 
 function HomePage() {
   const [inputValue, setInputValue] = useState("");
   const [searching, setSearching] = useState(false);
   const refInput = useRef<HTMLInputElement>(null);
+  const [popoverPos, setPopoverPos] = useState<PopoverPosition>({
+    top: 100,
+    left: 600,
+  });
+  const [suggestions, setSuggestions] = useState<any[]>([]);
+  const handleClose = () => {
+    setPopoverPos({ top: 0, left: 0 });
+  };
 
   const handleKeyDown = (key: React.KeyboardEvent<HTMLInputElement>) => {
     if (key.code === "Enter" && inputValue) {
       //  console.log("in handleKeyDown :" + key.code);
       setSearching(true);
-    } else setSearching(false);
+    } else if (key.code !== "Shift") setSearching(false);
   };
 
   useEffect(() => {
+    // const cryptoPrice = async () => {
+    //   const priceSearch = await fetch(
+    //     `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${inputValue}&order=market_cap_desc&per_page=100&page=1&sparkline=true&locale=en`
+    //   );
+
+    //   return priceSearch;
+    // };
+    // cryptoPrice()
+    //   .then((res) => res.json())
+    //   .then((resp) => setSuggestions(resp));
+
     refInput.current?.focus();
-  });
-  // console.log(inputValue + "" + searching);
+  }, []);
+  // console.log(suggestions);
 
   return (
     <>
@@ -48,6 +68,18 @@ function HomePage() {
               value={inputValue}
               onChange={(e) => setInputValue(e.currentTarget.value)}
             />
+            {/* <Popover
+              anchorReference="anchorPosition"
+              open={searching}
+              anchorPosition={popoverPos}
+              anchorEl={popoverPos}
+              style={{ width: "1000" }}
+              onClose={handleClose}
+              ref={refInput}
+            >
+             
+              {suggestions[0]?.id}
+            </Popover> */}
           </div>
           {!searching && (
             <div className="text-white text-3xl w-30 top-10 relative ">
