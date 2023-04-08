@@ -1,12 +1,4 @@
 import { useEffect, useState } from "react";
-import {
-  Area,
-  AreaChart,
-  CartesianGrid,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from "recharts";
 import { RenderChart } from "./renderChart";
 
 export function CoinSearch(props: any) {
