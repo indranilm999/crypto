@@ -1,31 +1,20 @@
 import { useEffect, useState } from "react";
 import { RenderChart } from "./renderChart";
+import { getCoinData } from "../functions/getCoinData";
+import { todayDate, calcDate } from "../functions/dates";
 
 export function CoinSearch(props: any) {
   const [priceData, setPriceData] = useState<any[]>([]);
   useEffect(() => {
-    const cryptoPrice = async () => {
-      const priceSearch = await fetch(
-        `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${props.searchValue}&order=market_cap_desc&per_page=100&page=1&sparkline=true&locale=en`
-      );
-
-      return priceSearch;
-    };
-
-    cryptoPrice()
+    getCoinData(
+      `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${props.searchValue}&order=market_cap_desc&per_page=100&page=1&sparkline=true&locale=en`
+    )
       .then((res) => res.json())
       .then((resp) => setPriceData(resp));
   }, [props.searchValue]);
 
   console.log(priceData);
-  const todayDate = new Date().toLocaleDateString("en-US");
-  const calcDate = (days: number) => {
-    const twentyDaysAgo = new Date(
-      Date.now() - days * 24 * 60 * 60 * 1000
-    ).toLocaleDateString("en-US");
 
-    return twentyDaysAgo;
-  };
   const newData = [
     {
       coinName: priceData[0]?.id ? todayDate : "",

@@ -3,21 +3,12 @@ import "../home.css";
 import { CoinSearch } from "./coinSearch";
 import { FetchTrendingCoins } from "./fetchTrendingCoins";
 import { Loading } from "./loading";
+import { getCoinData } from "../functions/getCoinData";
 function HomePage() {
   const [inputValue, setInputValue] = useState("");
   const [searching, setSearching] = useState(false);
   const [loading, setLoading] = useState(false);
   const refInput = useRef<HTMLInputElement>(null);
-
-  const [trendingData, setTrendingData] = useState<any[]>([]);
-
-  const cryptoPrice = async () => {
-    const priceSearch = await fetch(
-      `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${inputValue}&order=market_cap_desc&per_page=100&page=1&sparkline=true&locale=en`
-    );
-
-    return priceSearch;
-  };
 
   const handleKeyDown = (key: React.KeyboardEvent<HTMLInputElement>) => {
     if (key.code === "Enter" && inputValue) {
@@ -32,10 +23,10 @@ function HomePage() {
 
   useEffect(() => {
     refInput.current?.focus();
-    cryptoPrice()
-      .then((res) => res.json())
-      .then((resp) => setTrendingData(resp));
-  }, []);
+    getCoinData(
+      `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${inputValue}&order=market_cap_desc&per_page=100&page=1&sparkline=true&locale=en`
+    ).then((res) => res.json());
+  }, [inputValue]);
   // console.log(suggestions);
 
   return (
@@ -76,15 +67,11 @@ function HomePage() {
       </div>
 
       {!searching ? (
-        // <Routes>
         <div className="">
           <FetchTrendingCoins />
         </div>
       ) : (
-        // </Routes>
-        // <Routes>
         <CoinSearch searchValue={inputValue} />
-        // </Routes>
       )}
     </>
   );
