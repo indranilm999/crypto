@@ -10,10 +10,11 @@ export function FetchTrendingCoins(props?: any) {
 
   const setCoinName = (name: string) => {
     setcurrentCoin(name);
-    setBrowse(true);
+    setBrowse(!browse);
   };
 
   useEffect(() => {
+    setBrowse(false);
     getCoinData("https://api.coingecko.com/api/v3/search/trending")
       .then((res) => res.json())
       .then((resp) => {
@@ -23,7 +24,7 @@ export function FetchTrendingCoins(props?: any) {
   console.log(data);
 
   return (
-    <div className="flex  flex-wrap justify-center left-8">
+    <div className="flex  flex-wrap justify-evenly left-8">
       {!browse ? (
         data.map((coinsItem: any) => {
           const image = coinsItem.item.small;
@@ -73,7 +74,18 @@ export function FetchTrendingCoins(props?: any) {
           );
         })
       ) : (
-        <BrowseTrendingCoins data={data} currentCoin={currentCoin} />
+        <>
+          <div className="">
+            <button
+              onClick={() => setCoinName("")}
+              className="bg-green-400 h-8 w-35 relative top-20 left-5 z-10"
+            >
+              back
+            </button>
+
+            <BrowseTrendingCoins data={data} currentCoin={currentCoin} />
+          </div>
+        </>
       )}
     </div>
   );

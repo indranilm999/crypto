@@ -23,10 +23,7 @@ function HomePage() {
 
   useEffect(() => {
     refInput.current?.focus();
-    getCoinData(
-      `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${inputValue}&order=market_cap_desc&per_page=100&page=1&sparkline=true&locale=en`
-    ).then((res) => res.json());
-  }, [inputValue]);
+  }, []);
   // console.log(suggestions);
 
   return (
@@ -69,6 +66,10 @@ function HomePage() {
       {!searching ? (
         <div className="">
           <FetchTrendingCoins />
+          <></>
+          <></>
+          <></>
+          <></>
         </div>
       ) : (
         <CoinSearch searchValue={inputValue} />
