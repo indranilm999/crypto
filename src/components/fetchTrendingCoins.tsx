@@ -78,9 +78,9 @@ export function FetchTrendingCoins(props?: any) {
           <div className="">
             <button
               onClick={() => setCoinName("")}
-              className="bg-green-400 h-8 w-35 relative top-20 left-5 z-10"
+              className="bg-black h-8 w-16 relative top-20 left-5 z-10 text-white"
             >
-              back
+              home
             </button>
 
             <BrowseTrendingCoins data={data} currentCoin={currentCoin} />

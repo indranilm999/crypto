@@ -1,4 +1,4 @@
-import { Card, CardContent } from "@material-ui/core";
+import { Card, CardContent, Icon } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import {
   AreaChart,
@@ -11,6 +11,7 @@ import {
 import { getCoinData } from "../functions/getCoinData";
 import { todayDate, calcDate } from "../functions/dates";
 import { motion } from "framer-motion";
+import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
 
 export function BrowseTrendingCoins(props?: any) {
   console.log("BrowseTrendingCoins");
@@ -121,24 +122,24 @@ export function BrowseTrendingCoins(props?: any) {
         <>
           <button
             onClick={decrementIndex}
-            className="bg-green-400 h-8 w-38 relative   z-10"
-            style={{ left: "-120px", top: "228px" }}
+            className="bg-gray-900 h-8 w-35 relative text-white   z-10"
+            style={{ left: "-110px", top: "228px" }}
           >
-            Previous
+            <Icon component={ArrowBackIos} />
           </button>
           <button
             onClick={incrementIndex}
-            className="bg-green-400 h-8 w-35 relative  z-10"
+            className="bg-gray-900 h-8 w-35 relative text-white z-10"
             style={{ left: "310px", top: "228px" }}
           >
-            Next
+            <Icon component={ArrowForwardIos} />
           </button>
 
           <Card
             className="relative top-10 "
             style={{
               backgroundColor: "beige",
-              borderRadius: "35px",
+              borderRadius: "40px",
             }}
           >
             <center>

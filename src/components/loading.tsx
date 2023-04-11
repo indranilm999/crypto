@@ -1,7 +1,6 @@
 import Icon from "@material-ui/core/Icon";
 import { Loop } from "@material-ui/icons";
-import HourglassEmpty from "@material-ui/icons/HourglassEmpty";
-import HourglassFull from "@material-ui/icons/HourglassFull";
+
 import Cached from "@material-ui/icons/Cached";
 import { useEffect, useState } from "react";
 
