@@ -10,6 +10,7 @@ import {
 } from "recharts";
 import { getCoinData } from "../functions/getCoinData";
 import { todayDate, calcDate } from "../functions/dates";
+import { motion } from "framer-motion";
 
 export function BrowseTrendingCoins(props?: any) {
   console.log("BrowseTrendingCoins");
@@ -28,8 +29,10 @@ export function BrowseTrendingCoins(props?: any) {
   const [coinName, setCoinName] = useState(currentCoinName ?? "");
   const [coinIndex, setCoinIndex] = useState(findCoinIndex().index);
   const [priceData, setPriceData] = useState<any[]>([]);
+  const [showMotion, setShowMotion] = useState(false);
 
   const incrementIndex = () => {
+    setShowMotion(false);
     if (coinIndex === 6) {
       setCoinIndex(0);
       setCoinName(props.data[0].item.id);
@@ -40,6 +43,7 @@ export function BrowseTrendingCoins(props?: any) {
   };
 
   const decrementIndex = () => {
+    setShowMotion(false);
     if (coinIndex === 0) {
       setCoinIndex(6);
       setCoinName(props.data[6].item.id);
@@ -50,6 +54,8 @@ export function BrowseTrendingCoins(props?: any) {
   };
 
   useEffect(() => {
+    setShowMotion(true);
+
     getCoinData(
       `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${coinName}&order=market_cap_desc&per_page=100&page=1&sparkline=true&locale=en`
     )
@@ -133,11 +139,14 @@ export function BrowseTrendingCoins(props?: any) {
             style={{
               backgroundColor: "beige",
               borderRadius: "35px",
-              // backgroundImage: bitcoin_image,
             }}
           >
             <center>
-              <img
+              <motion.img
+                animate={{
+                  x: showMotion ? ["100px", "0px", "0px"] : "0px",
+                  opacity: "1",
+                }}
                 src={props.data[coinIndex].item.small ?? undefined}
                 alt="coin"
                 width={"100px"}
@@ -151,7 +160,7 @@ export function BrowseTrendingCoins(props?: any) {
               </div>
             </center>
 
-            <CardContent>
+            <CardContent className="bg-gray-900">
               <AreaChart
                 className=""
                 width={350}
@@ -171,20 +180,23 @@ export function BrowseTrendingCoins(props?: any) {
                   dataKey="coinName"
                 />
                 <YAxis tick={{ fill: "white" }} tickCount={4} />
-                <Tooltip contentStyle={{ color: "black" }} />
+                <Tooltip contentStyle={{ color: "white" }} />
                 <Area
                   type="natural"
                   dataKey="Price"
                   stroke="black"
-                  fill="black"
+                  fill="white"
                 />
               </AreaChart>
-
-              <div className="font-bold h-30">
+              {/* <div className="bg-pink-500 z-0 h-20 relative"></div> */}
+              <div className="font-bold h-30 text-white">
                 {props.data[coinIndex].item.id}
               </div>
-              <div className="text-green-400 font-bold h-12 ">
+              <div className="text-green-600 font-bold h-12 ">
                 {props.data[coinIndex].item.price_btc.toFixed(10) + ` BTC`}
+              </div>
+              <div className="text-green-600 font-bold h-12 relative r-0">
+                {priceData[0]?.current_price + ` USD`}
               </div>
             </CardContent>
           </Card>
