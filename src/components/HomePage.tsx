@@ -3,7 +3,6 @@ import "../home.css";
 import { CoinSearch } from "./coinSearch";
 import { FetchTrendingCoins } from "./fetchTrendingCoins";
 import { Loading } from "./loading";
-import { getCoinData } from "../functions/getCoinData";
 function HomePage() {
   const [inputValue, setInputValue] = useState("");
   const [searching, setSearching] = useState(false);

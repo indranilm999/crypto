@@ -3,6 +3,7 @@ import { RenderChart } from "./renderChart";
 import { getCoinData } from "../functions/getCoinData";
 import { todayDate, calcDate } from "../functions/dates";
 
+// This coingecko link is restricted and should be used economically as it has a limited no. of requests allowed per minute
 export function CoinSearch(props: any) {
   const [priceData, setPriceData] = useState<any[]>([]);
   useEffect(() => {
@@ -17,39 +18,9 @@ export function CoinSearch(props: any) {
 
   const newData = [
     {
-      coinName: priceData[0]?.id ? todayDate : "",
+      coinName: priceData[0]?.id ? calcDate(160) : "",
       bitcoinPrice: priceData[0]?.current_price ?? "",
-      Price: priceData[0]?.current_price ?? "",
-    },
-    {
-      coinName: priceData[0]?.id ? calcDate(20) : "",
-      bitcoinPrice: priceData[0]?.current_price ?? "",
-      Price: priceData[0]?.sparkline_in_7d.price[147] ?? "",
-    },
-    {
-      coinName: priceData[0]?.id ? calcDate(40) : "",
-      bitcoinPrice: priceData[0]?.current_price ?? "",
-      Price: priceData[0]?.sparkline_in_7d.price[127] ?? "",
-    },
-    {
-      coinName: priceData[0]?.id ? calcDate(60) : "",
-      bitcoinPrice: priceData[0]?.current_price ?? "",
-      Price: priceData[0]?.sparkline_in_7d.price[107] ?? "",
-    },
-    {
-      coinName: priceData[0]?.id ? calcDate(80) : "",
-      bitcoinPrice: priceData[0]?.current_price ?? "",
-      Price: priceData[0]?.sparkline_in_7d.price[87] ?? "",
-    },
-    {
-      coinName: priceData[0]?.id ? calcDate(100) : "",
-      bitcoinPrice: priceData[0]?.current_price ?? "",
-      Price: priceData[0]?.sparkline_in_7d.price[67] ?? "",
-    },
-    {
-      coinName: priceData[0]?.id ? calcDate(120) : "",
-      bitcoinPrice: priceData[0]?.current_price ?? "",
-      Price: priceData[0]?.sparkline_in_7d.price[47] ?? "",
+      Price: priceData[0]?.sparkline_in_7d.price[0] ?? "",
     },
     {
       coinName: priceData[0]?.id ? calcDate(140) : "",
@@ -57,9 +28,39 @@ export function CoinSearch(props: any) {
       Price: priceData[0]?.sparkline_in_7d.price[27] ?? "",
     },
     {
-      coinName: priceData[0]?.id ? calcDate(160) : "",
+      coinName: priceData[0]?.id ? calcDate(120) : "",
       bitcoinPrice: priceData[0]?.current_price ?? "",
-      Price: priceData[0]?.sparkline_in_7d.price[0] ?? "",
+      Price: priceData[0]?.sparkline_in_7d.price[47] ?? "",
+    },
+    {
+      coinName: priceData[0]?.id ? calcDate(100) : "",
+      bitcoinPrice: priceData[0]?.current_price ?? "",
+      Price: priceData[0]?.sparkline_in_7d.price[67] ?? "",
+    },
+    {
+      coinName: priceData[0]?.id ? calcDate(80) : "",
+      bitcoinPrice: priceData[0]?.current_price ?? "",
+      Price: priceData[0]?.sparkline_in_7d.price[87] ?? "",
+    },
+    {
+      coinName: priceData[0]?.id ? calcDate(60) : "",
+      bitcoinPrice: priceData[0]?.current_price ?? "",
+      Price: priceData[0]?.sparkline_in_7d.price[107] ?? "",
+    },
+    {
+      coinName: priceData[0]?.id ? calcDate(40) : "",
+      bitcoinPrice: priceData[0]?.current_price ?? "",
+      Price: priceData[0]?.sparkline_in_7d.price[127] ?? "",
+    },
+    {
+      coinName: priceData[0]?.id ? calcDate(20) : "",
+      bitcoinPrice: priceData[0]?.current_price ?? "",
+      Price: priceData[0]?.sparkline_in_7d.price[147] ?? "",
+    },
+    {
+      coinName: priceData[0]?.id ? todayDate : "",
+      bitcoinPrice: priceData[0]?.current_price ?? "",
+      Price: priceData[0]?.current_price ?? "",
     },
   ];
   const coinImage = priceData[0]?.image;

@@ -31,9 +31,13 @@ export function BrowseTrendingCoins(props?: any) {
   const [coinIndex, setCoinIndex] = useState(findCoinIndex().index);
   const [priceData, setPriceData] = useState<any[]>([]);
   const [showMotion, setShowMotion] = useState(false);
+  const [left, setLeft] = useState(false);
+  const [right, setRight] = useState(false);
 
   const incrementIndex = () => {
     setShowMotion(false);
+    setLeft(false);
+    setRight(true);
     if (coinIndex === 6) {
       setCoinIndex(0);
       setCoinName(props.data[0].item.id);
@@ -45,6 +49,8 @@ export function BrowseTrendingCoins(props?: any) {
 
   const decrementIndex = () => {
     setShowMotion(false);
+    setLeft(true);
+    setRight(false);
     if (coinIndex === 0) {
       setCoinIndex(6);
       setCoinName(props.data[6].item.id);
@@ -56,50 +62,20 @@ export function BrowseTrendingCoins(props?: any) {
 
   useEffect(() => {
     setShowMotion(true);
-
+    // This coingecko link is restricted and should be used economically as it has a limited no. of requests allowed per minute
     getCoinData(
       `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${coinName}&order=market_cap_desc&per_page=100&page=1&sparkline=true&locale=en`
     )
       .then((res) => res.json())
       .then((resp) => setPriceData(resp));
-  }, [coinIndex, coinName, props.data]);
+  }, [coinName]);
 
   // graph data of a single coin over a period of 7 days
   const newData = [
     {
-      coinName: priceData[0]?.id ? todayDate : "",
+      coinName: priceData[0]?.id ? calcDate(160) : "",
       bitcoinPrice: priceData[0]?.current_price ?? "",
-      Price: priceData[0]?.current_price ?? "",
-    },
-    {
-      coinName: priceData[0]?.id ? calcDate(20) : "",
-      bitcoinPrice: priceData[0]?.current_price ?? "",
-      Price: priceData[0]?.sparkline_in_7d.price[147] ?? "",
-    },
-    {
-      coinName: priceData[0]?.id ? calcDate(40) : "",
-      bitcoinPrice: priceData[0]?.current_price ?? "",
-      Price: priceData[0]?.sparkline_in_7d.price[127] ?? "",
-    },
-    {
-      coinName: priceData[0]?.id ? calcDate(60) : "",
-      bitcoinPrice: priceData[0]?.current_price ?? "",
-      Price: priceData[0]?.sparkline_in_7d.price[107] ?? "",
-    },
-    {
-      coinName: priceData[0]?.id ? calcDate(80) : "",
-      bitcoinPrice: priceData[0]?.current_price ?? "",
-      Price: priceData[0]?.sparkline_in_7d.price[87] ?? "",
-    },
-    {
-      coinName: priceData[0]?.id ? calcDate(100) : "",
-      bitcoinPrice: priceData[0]?.current_price ?? "",
-      Price: priceData[0]?.sparkline_in_7d.price[67] ?? "",
-    },
-    {
-      coinName: priceData[0]?.id ? calcDate(120) : "",
-      bitcoinPrice: priceData[0]?.current_price ?? "",
-      Price: priceData[0]?.sparkline_in_7d.price[47] ?? "",
+      Price: priceData[0]?.sparkline_in_7d.price[0] ?? "",
     },
     {
       coinName: priceData[0]?.id ? calcDate(140) : "",
@@ -107,15 +83,45 @@ export function BrowseTrendingCoins(props?: any) {
       Price: priceData[0]?.sparkline_in_7d.price[27] ?? "",
     },
     {
-      coinName: priceData[0]?.id ? calcDate(160) : "",
+      coinName: priceData[0]?.id ? calcDate(120) : "",
       bitcoinPrice: priceData[0]?.current_price ?? "",
-      Price: priceData[0]?.sparkline_in_7d.price[0] ?? "",
+      Price: priceData[0]?.sparkline_in_7d.price[47] ?? "",
+    },
+    {
+      coinName: priceData[0]?.id ? calcDate(100) : "",
+      bitcoinPrice: priceData[0]?.current_price ?? "",
+      Price: priceData[0]?.sparkline_in_7d.price[67] ?? "",
+    },
+    {
+      coinName: priceData[0]?.id ? calcDate(80) : "",
+      bitcoinPrice: priceData[0]?.current_price ?? "",
+      Price: priceData[0]?.sparkline_in_7d.price[87] ?? "",
+    },
+    {
+      coinName: priceData[0]?.id ? calcDate(60) : "",
+      bitcoinPrice: priceData[0]?.current_price ?? "",
+      Price: priceData[0]?.sparkline_in_7d.price[107] ?? "",
+    },
+    {
+      coinName: priceData[0]?.id ? calcDate(40) : "",
+      bitcoinPrice: priceData[0]?.current_price ?? "",
+      Price: priceData[0]?.sparkline_in_7d.price[127] ?? "",
+    },
+    {
+      coinName: priceData[0]?.id ? calcDate(20) : "",
+      bitcoinPrice: priceData[0]?.current_price ?? "",
+      Price: priceData[0]?.sparkline_in_7d.price[147] ?? "",
+    },
+    {
+      coinName: priceData[0]?.id ? todayDate : "",
+      bitcoinPrice: priceData[0]?.current_price ?? "",
+      Price: priceData[0]?.current_price ?? "",
     },
   ];
 
   // console.log(trendingCoinList);
-  console.log(priceData);
-  console.log(coinIndex);
+  // console.log(priceData);
+  // console.log(coinIndex);
   return (
     <>
       {
@@ -145,8 +151,12 @@ export function BrowseTrendingCoins(props?: any) {
             <center>
               <motion.img
                 animate={{
-                  x: showMotion ? ["100px", "0px", "0px"] : "0px",
-                  opacity: "1",
+                  x:
+                    showMotion && right
+                      ? ["100px", "0px", "0px"]
+                      : showMotion && left
+                      ? ["-100px", "0px", "0px"]
+                      : "0px",
                 }}
                 src={props.data[coinIndex].item.small ?? undefined}
                 alt="coin"

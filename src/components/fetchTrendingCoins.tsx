@@ -21,7 +21,7 @@ export function FetchTrendingCoins(props?: any) {
         setData(resp.coins);
       });
   }, []);
-  console.log(data);
+  // console.log(data);
 
   return (
     <div className="flex  flex-wrap justify-evenly left-8">
